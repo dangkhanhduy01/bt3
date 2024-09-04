@@ -5,41 +5,47 @@ package bt2;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 import bt1.sanpham;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class WriteObject {
-     public static void main(String[] args) {
-       
- ArrayList<sanpham> ds = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
+     public static void main(String[] args) throws FileNotFoundException, IOException {
+        ArrayList<sanpham> ds = new ArrayList<>();
+//        ds.add(new SanPham("SP01", "Gao", 25000));
+//        ds.add(new SanPham("SP02", "Duong", 45000));
+//        ds.add(new SanPham("SP03", "Keo", 29000));
 
-        // Nhập thông tin 3 sản phẩm từ bàn phím
-        for (int i = 0; i < 3; i++) {
-            System.out.println("Nhập thông tin sản phẩm thứ " + (i + 1) + ":");
-            System.out.print("Mã số: ");
-            String maSo = scanner.nextLine();
-            System.out.print("Tên sản phẩm: ");
-            String ten = scanner.nextLine();
-            System.out.print("Giá sản phẩm: ");
-            float gia = Float.parseFloat(scanner.nextLine());
-
-            ds.add(new sanpham(maSo, ten, gia));
-        }
-
-        // Ghi danh sách sản phẩm vào file 'sanpham.txt'
-        try (FileWriter fw = new FileWriter("sanpham.txt")) {
-            for (sanpham sp : ds) {
-                fw.write(sp.getMaSo() + ";" + sp.getTen() + ";" + sp.getGia() + "\n");
+        Scanner sc = new Scanner(System.in);
+        try {
+            FileOutputStream fos = new FileOutputStream("sanpham.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            //Nhap danh sach tu ban phim
+            for (int i = 0; i < 3; i++) {
+                System.out.println("Thong tin san pham thu nhat" + (i + 1));
+                System.out.println("Nhap ma so:");
+                String maso = sc.nextLine();
+                System.out.println("Nhap ten:");
+                String ten = sc.nextLine();
+                System.out.println("Nhap gia");
+                float gia = sc.nextFloat();
+                sc.nextLine();
+                sanpham sp = new sanpham(maso, ten, gia);
+                ds.add(sp);
             }
-            System.out.println("Ghi danh sách sản phẩm vào file 'sanpham.txt' thành công.");
-        } catch (IOException ex) {
-            System.out.println("Lỗi xảy ra: " + ex.toString());
+            //ghi danh sach san pham ra tap tin
+            oos.writeObject(ds);
+            //dong luong
+            oos.close();
+
+            System.out.println("\n Da ghi xong");
+
+        
+        }catch(Exception ex){                   
+            System.out.println("Loi xay ra:" + ex.toString());
         }
     }
 }
-
