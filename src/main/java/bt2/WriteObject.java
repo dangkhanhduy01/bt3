@@ -1,8 +1,8 @@
 package bt2;
 
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click  license
+ * Click 
  */
 import bt1.sanpham;
 import java.io.FileNotFoundException;
